@@ -20,30 +20,31 @@ const products = [
 ];
 function Product() {
     const [state, setState] = useState({
-        cart: [],
-        total: 0
+        cart: []
     });
     const currencyOptions = {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     };
-    const getTotal = () => {
-        return state.total.toLocaleString(undefined, currencyOptions);
-    }
+    
     const add = (product) => {
         setState(state => ({
-            cart: [...state.cart, product.name],
-            total: state.total + product.price
+            cart: [...state.cart, product.name]
         }))
     }
+    const getTotal = () => {
+        const total = state.cart.reduce((totalCost, item)=>totalCost + item, 0);
+        return total.toLocaleString(undefined, currencyOptions);
+    }
     const remove = (product) => {
-        setState(state => {
+        setState(state=>{
             const cart = [...state.cart];
-            cart.splice(cart.indexOf(product.name));
-            return ({
-                cart,
-                total : state.total - product.price
-            });            
+            const index = cart.findIndex(p=>p.name===product.name);
+            if (index < 0) {
+                return;
+            }
+            cart.splice(index, 1);
+            return ({ cart });
         })
     }
     return (

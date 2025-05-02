@@ -27,26 +27,26 @@ function Product() {
         maximumFractionDigits: 2,
     };
     
-    const add = (product) => {
-        setState(state => ({
-            cart: [...state.cart, product.name]
+    const add=(product)=>{
+        setState(state=>({
+            cart: [...state.cart, product]
         }))
     }
-    const getTotal = () => {
-        const total = state.cart.reduce((totalCost, item)=>totalCost + item, 0);
+    const getTotal = () =>{
+        const total = state.cart.reduce((totalCost, item)=>totalCost+item.price, 0);
         return total.toLocaleString(undefined, currencyOptions);
     }
-    const remove = (product) => {
+    const remove = (product) => (
         setState(state=>{
             const cart = [...state.cart];
             const index = cart.findIndex(p=>p.name===product.name);
-            if (index < 0) {
+            if (index<0) {
                 return;
             }
             cart.splice(index, 1);
-            return ({ cart });
+            return ({cart});
         })
-    }
+    )
     return (
         <div className='wrapper'>
             <div>

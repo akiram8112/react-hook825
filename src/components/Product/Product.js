@@ -36,10 +36,14 @@ function Product() {
             total: state.total + product.price
         }))
     }
-    const remove = () => {
-        setState({
-            cart: [],
-            total: 0
+    const remove = (product) => {
+        setState(state => {
+            const cart = [...state.cart];
+            cart.splice(cart.indexOf(product.name));
+            return ({
+                cart,
+                total : state.total - product.price
+            });            
         })
     }
     return (
@@ -52,7 +56,7 @@ function Product() {
                 {products.map((product)=>(
                     <div key={product.name}>
                         <div className='product'><span role='img' aria-label={product.name}>{product.emoji}</span></div>
-                        <button onClick={() => add(product)}>Add</button><button onClick={remove}>Remove</button>
+                        <button onClick={() => add(product)}>Add</button><button onClick={()=>remove(product)}>Remove</button>
                     </div>
                 ))}
             </div>

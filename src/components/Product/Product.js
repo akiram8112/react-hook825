@@ -23,18 +23,18 @@ function Product() {
         cart: [],
         total: 0
     });
-    const currenyOptions = {
+    const currencyOptions = {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     };
     const getTotal = () => {
-        return state.total.toLocaleString(undefined, currenyOptions);
+        return state.total.toLocaleString(undefined, currencyOptions);
     }
     const add = (product) => {
-        setState({
+        setState(state => ({
             cart: [...state.cart, product.name],
             total: state.total + product.price
-        })
+        }))
     }
     const remove = () => {
         setState({
@@ -52,7 +52,7 @@ function Product() {
                 {products.map((product)=>(
                     <div key={product.name}>
                         <div className='product'><span role='img' aria-label={product.name}>{product.emoji}</span></div>
-                        <button onClick={ add }>Add</button><button onClick={ remove }>Remove</button>
+                        <button onClick={() => add(product)}>Add</button><button onClick={remove}>Remove</button>
                     </div>
                 ))}
             </div>

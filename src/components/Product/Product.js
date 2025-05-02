@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState }from 'react';
 import './Product.css';
 
 function Product() {
+    const [state, setState] = useState({
+        cart: [],
+        total: 0
+    });
     return (
         <div className='wrapper'>
             <div>
-                Shopping Cart: 0 total items
+                Shopping Cart: {state.cart.length} total items
             </div>
-            <div>Total : 0</div>
+            <div>Total : {state.total}</div>
             <div className='product'><span role='img' aria-label='ice-cream'></span></div>
             <button>Add</button><button>Remove</button>
         </div>
